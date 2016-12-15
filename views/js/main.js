@@ -524,7 +524,12 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 200; i++) {
+  // Define the height of the screen
+  var viewportHeight = window.innerHeight;
+  // Calculate the needed number of pizzas for the background based on the viewport height
+  var numberOfPizzas = (viewportHeight/s)*cols;
+
+  for (var i = 0; i < numberOfPizzas; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";

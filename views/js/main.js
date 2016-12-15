@@ -496,15 +496,26 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 // The following code for sliding background pizzas was pulled from Ilya's demo found at:
 // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
 
+// Define the height of the screen
+var viewportHeight = window.innerHeight;
+
 // Moves the sliding background pizzas based on scroll position
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
-
-  var items = document.querySelectorAll('.mover');
+  var phase = Math.sin((document.body.scrollTop / 1250) + Math.random() * 4);
+  var items = document.getElementsByClassName('mover');
   for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
+    // document.body.scrollTop / 1250 =
+    // i % 5 = Number between 0 and 4
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+    // console.log('phase', phase);
+    // console.log('document.body.scrollTop', document.body.scrollTop);
+    //
+    // console.log('document.body.scrollTop / 1250', document.body.scrollTop / 1250);
+    // console.log('i % 5', i % 5);
+    
+    
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
@@ -524,8 +535,6 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  // Define the height of the screen
-  var viewportHeight = window.innerHeight;
   // Calculate the needed number of pizzas for the background based on the viewport height
   var numberOfPizzas = (viewportHeight/s)*cols;
 

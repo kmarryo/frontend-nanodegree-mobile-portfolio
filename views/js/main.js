@@ -503,19 +503,21 @@ var viewportHeight = window.innerHeight;
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
-  var phase = Math.sin((document.body.scrollTop / 1250) + Math.random() * 4);
   var items = document.getElementsByClassName('mover');
+  // Scrolling position
+  //   var scrollResult = function() {
+  //     var scrollPosY = window.pageYOffset;
+  //     var scrollPosX = window.pageXOffset;
+  //   }
+  //   window.onscroll = scrollResult();
+// console.log('document.body.scrollTop', document.body.scrollTop);
+// console.log('window.pageYOffset', window.pageYOffset);
+
+
+  var scrollPos = (window.pageYOffset / 1250);
   for (var i = 0; i < items.length; i++) {
-    // document.body.scrollTop / 1250 =
-    // i % 5 = Number between 0 and 4
-    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
-    // console.log('phase', phase);
-    // console.log('document.body.scrollTop', document.body.scrollTop);
-    //
-    // console.log('document.body.scrollTop / 1250', document.body.scrollTop / 1250);
-    // console.log('i % 5', i % 5);
-    
-    
+      var phase = Math.sin(scrollPos + (i % 5));
+      items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.

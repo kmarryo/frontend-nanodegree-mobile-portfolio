@@ -406,13 +406,13 @@ var resizePizzas = function (size) {
     function changeSliderLabel(size) {
         switch (size) {
             case "1":
-                document.querySelector("#pizzaSize").innerHTML = "Small";
+                document.getElementById("pizzaSize").innerHTML = "Small";
                 return;
             case "2":
-                document.querySelector("#pizzaSize").innerHTML = "Medium";
+                document.getElementById("pizzaSize").innerHTML = "Medium";
                 return;
             case "3":
-                document.querySelector("#pizzaSize").innerHTML = "Large";
+                document.getElementById("pizzaSize").innerHTML = "Large";
                 return;
             default:
                 console.log("bug in changeSliderLabel");
@@ -426,19 +426,9 @@ var resizePizzas = function (size) {
         var oldWidth = elem.offsetWidth;
         var windowWidth = document.getElementById("randomPizzas").offsetWidth;
         var oldSize = oldWidth / windowWidth;
-
         // Changes the slider value to a percent width
         function sizeSwitcher(size) {
-            switch (size) {
-                case "1":
-                    return 0.25;
-                case "2":
-                    return 0.3333;
-                case "3":
-                    return 0.5;
-                default:
-                    console.log("bug in sizeSwitcher");
-            }
+
         }
 
         var newSize = sizeSwitcher(size);
@@ -448,11 +438,27 @@ var resizePizzas = function (size) {
     }
 
     // Iterates through pizza elements on the page and changes their widths
+    var pizzaContainer = document.getElementsByClassName("randomPizzaContainer");
+    //var dx = determineDx(pizzaContainer[i], size);
+    //var newwidth = (pizzaContainer[i].offsetWidth + dx) + 'px';
     function changePizzaSizes(size) {
-        for (var i = 0; i < document.getElementsByClassName("randomPizzaContainer").length; i++) {
-            var dx = determineDx(document.getElementsByClassName("randomPizzaContainer")[i], size);
-            var newwidth = (document.getElementsByClassName("randomPizzaContainer")[i].offsetWidth + dx) + 'px';
-            document.getElementsByClassName("randomPizzaContainer")[i].style.width = newwidth;
+        var newWidth;
+        switch (size) {
+            case "1":
+                newWidth = 0.25;
+                break;
+            case "2":
+                newWidth = 0.3333;
+                break;
+            case "3":
+                newWidth = 0.5;
+                break;
+            default:
+                console.log("bug in sizeSwitcher");
+                break;
+        }
+        for (var i = 0; i < pizzaContainer.length; i++) {
+            pizzaContainer[i].style.width = newWidth + "%";
         }
     }
 

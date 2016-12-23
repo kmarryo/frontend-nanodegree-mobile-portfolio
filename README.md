@@ -11,7 +11,7 @@ OR
 
 To just look at the final result you can visit my[GitHub Pages-Site](https://kmarryo.github.io/frontend-nanodegree-mobile-portfolio/)
 
-## Improvements made to speed up the project
+## Improvements made to speed up the Website
 
 ### Increasing PageSpeed
 - Crop too large images and minify them using tinypng.com

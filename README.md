@@ -7,6 +7,10 @@ This project is containing work to improve the speed of a page. On one hand it w
 1. Download this project via github (clone or download)
 2. Open a browser and visit localhost:8080 or you can simply open the index.html straight in your browser window
 
+OR
+
+To just look at the final result you can visit my[GitHub Pages-Site](https://kmarryo.github.io/frontend-nanodegree-mobile-portfolio/)
+
 ## Improvements made to speed up the project
 
 ### Increasing PageSpeed

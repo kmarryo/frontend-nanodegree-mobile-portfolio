@@ -1,55 +1,31 @@
-## Website Performance Optimization portfolio project
+# Website Performance Optimization portfolio project
 
-Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
+This project is containing work to improve the speed of a page. On one hand it was the goal to get a better Google PageSpeed rank, on the other hand it was necessary to get to 60 fps while scrolling or resizing the pizzas in the views/pizza.html file.
 
-To get started, check out the repository and inspect the code.
+## Running this application
 
-### Getting started
+1. Download this project via github (clone or download)
+2. Open a browser and visit localhost:8080 or you can simply open the index.html straight in your browser window
 
-####Part 1: Optimize PageSpeed Insights score for index.html
+## Improvements made to speed up the project
 
-Some useful tips to help you get started:
+### Increasing PageSpeed
+- Crop too large images and minify them using tinypng.com
+- Inline CSS: Because the style.css file wasn´t much code, I completely inlined the css within a `<style>`-Tag and minified it
+- Using WebFont-Loader JS at the very bottom of the page to load the Google Webfonts asynchronously
+- Load Google Analytics asynchronously
 
-1. Check out the repository
-1. To inspect the site on your phone, you can run a local server
+### Reach 60 fps in views/pizza.html
+All of the changes coming up were made in the views/js/main.js file.
+#### `function updatePositions()`
+I reduced the number of variables and calculations inside the for-loop. Therefore: 
+- The scrolling position of the user is now stored in the variable scrollTop outside the loop.
+- The phase-calculation is now outsourced into a function. The function takes a parameter called "modulo", which gets the `i % 5` as parameter when called inside the for-loop
+#### `Reducing number of pizzas created`
+It was unnecessary to create a fixed number of 200 pizzas on the screen, so I reduced this number. But instead of a fixed number it is now calculating the needed number of pizzas based on the screen height.
 
-  ```bash
-  $> cd /path/to/your-project-folder
-  $> python -m SimpleHTTPServer 8080
-  ```
-
-1. Open a browser and visit localhost:8080
-1. Download and install [ngrok](https://ngrok.com/) to the top-level of your project directory to make your local server accessible remotely.
-
-  ``` bash
-  $> cd /path/to/your-project-folder
-  $> ./ngrok http 8080
-  ```
-
-1. Copy the public URL ngrok gives you and try running it through PageSpeed Insights! Optional: [More on integrating ngrok, Grunt and PageSpeed.](http://www.jamescryer.com/2014/06/12/grunt-pagespeed-and-ngrok-locally-testing/)
-
-Profile, optimize, measure... and then lather, rinse, and repeat. Good luck!
-
-####Part 2: Optimize Frames per Second in pizza.html
-
-To optimize views/pizza.html, you will need to modify views/js/main.js until your frames per second rate is 60 fps or higher. You will find instructive comments in main.js. 
-
-You might find the FPS Counter/HUD Display useful in Chrome developer tools described here: [Chrome Dev Tools tips-and-tricks](https://developer.chrome.com/devtools/docs/tips-and-tricks).
-
-### Optimization Tips and Tricks
-* [Optimizing Performance](https://developers.google.com/web/fundamentals/performance/ "web performance")
-* [Analyzing the Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/analyzing-crp.html "analyzing crp")
-* [Optimizing the Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/optimizing-critical-rendering-path.html "optimize the crp!")
-* [Avoiding Rendering Blocking CSS](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-blocking-css.html "render blocking css")
-* [Optimizing JavaScript](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/adding-interactivity-with-javascript.html "javascript")
-* [Measuring with Navigation Timing](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/measure-crp.html "nav timing api"). We didn't cover the Navigation Timing API in the first two lessons but it's an incredibly useful tool for automated page profiling. I highly recommend reading.
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/eliminate-downloads.html">The fewer the downloads, the better</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/optimize-encoding-and-transfer.html">Reduce the size of text</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/image-optimization.html">Optimize images</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching.html">HTTP caching</a>
-
-### Customization with Bootstrap
-The portfolio was built on Twitter's <a href="http://getbootstrap.com/">Bootstrap</a> framework. All custom styles are in `dist/css/portfolio.css` in the portfolio repo.
-
-* <a href="http://getbootstrap.com/css/">Bootstrap's CSS Classes</a>
-* <a href="http://getbootstrap.com/components/">Bootstrap's Components</a>
+#### `function resizePizzas()`
+- I replaced the whole determineDx function, which wasn´t needed and produced a lot of unnecessary calculations. Instead:
+    - All pizza containers are now stored in the pizzaContainer variable.
+    - `function sizeSwitcher(size)` now returns the numbers of the new size of the pizzas (in percent)
+    - Inside the `resizePizzas()` function, the `sizeSwitcher(size)` function is called. Its value is stored inside the newWidth variable. This variable is then used for all of the pizzaContainers via the for-loop.
